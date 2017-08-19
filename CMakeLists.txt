@@ -12,7 +12,7 @@ if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
 endif()
 
-include_directories(${PROJECT_SOURCE_DIR}/banana/include)
+include_directories(${PROJECT_SOURCE_DIR}/micky/include)
 
 set(SOURCE_FILES library.cpp library.h)
 add_library(micky ${SOURCE_FILES})
