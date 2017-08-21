@@ -1,3 +1,0 @@
-/Users/thuync/Labs/micky/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/thuync/Labs/micky/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/thuync/Labs/micky/cmake-build-debug/CMakeFiles/micky.dir
