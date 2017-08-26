@@ -119,4 +119,4 @@ RUN mkdir proxygen && cd proxygen \
 
 WORKDIR ~
 
-#RUN rm -rf /tmp/*
+RUN rm -rf /tmp/*
