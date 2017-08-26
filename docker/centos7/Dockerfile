@@ -72,6 +72,13 @@ RUN wget https://github.com/google/glog/archive/v0.3.5.zip \
     && cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ .. \
     && make && make test && make install
 
+RUN wget https://github.com/google/googletest/archive/release-1.8.0.zip \
+    && unzip release-1.8.0.zip \
+    && cd googletest-release-1.8.0/ \
+    && mkdir build && cd build \
+    && cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ .. \
+    && make && make test && make install
+
 RUN wget https://github.com/facebook/folly/archive/v2017.08.21.00.zip \
     && unzip v2017.08.21.00.zip \
     && cd folly-2017.08.21.00/folly \
@@ -81,8 +88,35 @@ RUN wget https://github.com/facebook/folly/archive/v2017.08.21.00.zip \
 #    && make check \
     && make install
 
+COPY wangle/CMakeLists.txt .
 
+RUN mkdir wangle && cd wangle \
+    && wget https://github.com/facebook/wangle/archive/v2017.08.21.00.zip \
+    && unzip v2017.08.21.00.zip \
+    && cd wangle-2017.08.21.00/wangle/ \
+    && cp -f /tmp/CMakeLists.txt . \
+    && mkdir build && cd build \
+    && cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ .. \
+    && make \
+#    && make test \  --> docker network issue
+    && make install
+
+RUN wget http://mirrors.ustc.edu.cn/gnu/autoconf-archive/autoconf-archive-2010.06.04.tar.gz \
+    && tar -xvf autoconf-archive-2010.06.04.tar.gz \
+    && cd autoconf-archive-2010.06.04 \
+    && ./configure \
+    && make && make install
+
+RUN yum install -y libcap-devel gperf
+
+RUN mkdir proxygen && cd proxygen \
+    && wget https://github.com/facebook/proxygen/archive/v2017.08.21.00.zip \
+    && unzip v2017.08.21.00.zip \
+    && cd proxygen-2017.08.21.00/proxygen \
+    && ACLOCAL='aclocal -I /usr/local/share/aclocal' autoreconf -ivf \
+    && ./configure \
+    && make && make install
 
 WORKDIR ~
 
-RUN rm -rf /tmp/*
+#RUN rm -rf /tmp/*
